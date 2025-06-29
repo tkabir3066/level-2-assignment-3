@@ -8,11 +8,7 @@ const app: Application = express();
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-  res.status(200).json({
-    message: "Welcome to Library management API",
-    success: true,
-    info: "Visit README file for documentation",
-  });
+  res.send({ message: "Welcome to the Library Management System" });
 });
 
 //middleware
