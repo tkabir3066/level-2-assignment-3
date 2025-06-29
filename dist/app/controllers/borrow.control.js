@@ -16,11 +16,13 @@ exports.borrowRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const borrow_model_1 = __importDefault(require("../models/borrow.model"));
 const book_model_1 = __importDefault(require("../models/book.model"));
+const borrow_zod_Schema_1 = require("../utils/borrow-zod-Schema");
 exports.borrowRouter = express_1.default.Router();
 //create borrow details
 exports.borrowRouter.post("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { book, quantity, dueDate } = req.body;
+        const validatedData = borrow_zod_Schema_1.createBorrowZodSchema.parse(req.body);
+        const { book, quantity, dueDate } = validatedData;
         //   Business logic handled via Book static method
         yield book_model_1.default.borrowBook(book, quantity);
         const borrowRecord = yield borrow_model_1.default.create({ book, quantity, dueDate });

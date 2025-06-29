@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { Server } from "http";
 import app from "./app";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let server: Server;
 
 const PORT = 5000;

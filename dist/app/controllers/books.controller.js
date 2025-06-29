@@ -15,18 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.booksRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const book_model_1 = __importDefault(require("../models/book.model"));
+const book_zod_schema_1 = require("../utils/book-zod-schema");
 exports.booksRouter = express_1.default.Router();
 //create a book
 exports.booksRouter.post("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const body = req.body;
-        const newBook = yield book_model_1.default.create(body);
+        const zodBody = book_zod_schema_1.bookZodSchema.parse(req.body);
+        const newBook = yield book_model_1.default.create(zodBody);
         res.status(201).json({
             success: true,
             message: "Book created successfully",
             data: newBook,
         });
-        next();
     }
     catch (error) {
         next(error);
