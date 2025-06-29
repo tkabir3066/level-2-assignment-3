@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import Book from "../models/book.model";
+import { bookZodSchema } from "../utils/book-zod-schema";
 
 export const booksRouter = express.Router();
 
@@ -8,17 +9,15 @@ booksRouter.post(
   "/",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const body = req.body;
+      const zodBody = bookZodSchema.parse(req.body);
 
-      const newBook = await Book.create(body);
+      const newBook = await Book.create(zodBody);
 
       res.status(201).json({
         success: true,
         message: "Book created successfully",
         data: newBook,
       });
-
-      next();
     } catch (error) {
       next(error);
     }

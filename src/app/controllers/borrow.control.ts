@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import Borrow from "../models/borrow.model";
 import Book from "../models/book.model";
+import { createBorrowZodSchema } from "../utils/borrow-zod-Schema";
 
 export const borrowRouter = express.Router();
 
@@ -9,7 +10,8 @@ borrowRouter.post(
   "/",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { book, quantity, dueDate } = req.body;
+      const validatedData = createBorrowZodSchema.parse(req.body);
+      const { book, quantity, dueDate } = validatedData;
 
       //   Business logic handled via Book static method
       await Book.borrowBook(book, quantity);
