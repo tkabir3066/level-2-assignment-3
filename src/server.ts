@@ -1,10 +1,10 @@
 import "dotenv/config";
 import mongoose from "mongoose";
-import { Server } from "http";
+import { Server, createServer } from "http";
 import app from "./app";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let server: Server;
+let server = createServer(app);
 
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI!;
@@ -26,3 +26,5 @@ async function main() {
 }
 
 main();
+
+export default server;
