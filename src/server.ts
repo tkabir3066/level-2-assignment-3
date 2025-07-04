@@ -1,3 +1,4 @@
+import "dotenv/config";
 import mongoose from "mongoose";
 import { Server } from "http";
 import app from "./app";
@@ -5,13 +6,14 @@ import app from "./app";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let server: Server;
 
-const PORT = 5000;
-
+const PORT = process.env.PORT;
+const MONGO_URI = process.env.MONGO_URI!;
+if (!MONGO_URI) {
+  throw new Error("MONGODB_URL is not defined in the environment variables");
+}
 async function main() {
   try {
-    await mongoose.connect(
-      "mongodb+srv://tutulkabir:Tk3066abd%40@cluster0.vzz24au.mongodb.net/library-management-system?retryWrites=true&w=majority&appName=Cluster0"
-    );
+    await mongoose.connect(MONGO_URI);
 
     console.log("Mongodb connected successfully");
 
