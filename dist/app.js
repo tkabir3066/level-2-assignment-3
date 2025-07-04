@@ -10,11 +10,7 @@ const borrow_control_1 = require("./app/controllers/borrow.control");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.get("/", (req, res) => {
-    res.status(200).json({
-        message: "Welcome to Library management API",
-        success: true,
-        info: "Visit README file for documentation",
-    });
+    res.send({ message: "Welcome to the Library Management System" });
 });
 //middleware
 app.use("/api/books", books_controller_1.booksRouter);

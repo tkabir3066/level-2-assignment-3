@@ -12,15 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let server;
-const PORT = 5000;
+const PORT = process.env.PORT;
+const MONGO_URI = process.env.MONGO_URI;
+if (!MONGO_URI) {
+    throw new Error("MONGODB_URL is not defined in the environment variables");
+}
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect("mongodb+srv://tutulkabir:Tk3066abd%40@cluster0.vzz24au.mongodb.net/library-management-system?retryWrites=true&w=majority&appName=Cluster0");
+            yield mongoose_1.default.connect(MONGO_URI);
             console.log("Mongodb connected successfully");
             server = app_1.default.listen(PORT, () => {
                 console.log(`App is listening on port:${PORT}`);
