@@ -14,9 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const mongoose_1 = __importDefault(require("mongoose"));
+const http_1 = require("http");
 const app_1 = __importDefault(require("./app"));
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let server;
+let server = (0, http_1.createServer)(app_1.default);
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
@@ -37,3 +38,4 @@ function main() {
     });
 }
 main();
+exports.default = server;
