@@ -6,7 +6,7 @@ import app from "./app";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let server = createServer(app);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI!;
 if (!MONGO_URI) {
   throw new Error("MONGODB_URL is not defined in the environment variables");

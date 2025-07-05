@@ -18,6 +18,13 @@ borrowRouter.post(
 
       const borrowRecord = await Borrow.create({ book, quantity, dueDate });
 
+      if (!borrowRecord) {
+        res.status(404).json({
+          success: false,
+          message: "borrow record not found",
+        });
+      }
+
       res.status(201).json({
         success: true,
         message: "Book borrowed successfully",

@@ -73,6 +73,19 @@ bookSchema.static(
   }
 );
 
+//pre hook
+bookSchema.pre("find", function (next) {
+  next();
+});
+
+//post hook
+
+bookSchema.post("save", function (doc, next) {
+  console.log("%s has been saved", doc.title);
+
+  next();
+});
+
 const Book = model<IBook, BookStaticMethods>("Book", bookSchema);
 
 export default Book;
